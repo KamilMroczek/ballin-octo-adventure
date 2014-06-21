@@ -1,0 +1,9 @@
+---
+:orm: activerecord
+:test: rspec
+:mock: rr
+:script: jquery
+:renderer: haml
+:stylesheet: sass
+:namespace: BallinOctoAdventure
+:migration_format: number
