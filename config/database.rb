@@ -22,14 +22,12 @@ ActiveRecord::Base.configurations[:development] = {
 postgres = URI.parse(ENV['DATABASE_URL'] || '')
 
 ActiveRecord::Base.configurations[:production] = {
-  ActiveRecord::Base.configurations[:production] = {
-    :adapter  => 'postgresql',
-    :encoding => 'utf8',
-    :database => postgres.path[1..-1], 
-    :username => postgres.user,
-    :password => postgres.password,
-    :host     => postgres.host
-  }
+  :adapter  => 'postgresql',
+  :encoding => 'utf8',
+  :database => postgres.path[1..-1], 
+  :username => postgres.user,
+  :password => postgres.password,
+  :host     => postgres.host
 }
 
 ActiveRecord::Base.configurations[:test] = {
