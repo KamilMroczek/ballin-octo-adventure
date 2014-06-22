@@ -17,7 +17,6 @@ gem 'rake'
 gem 'sass'
 gem 'haml'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
-gem 'sqlite3'
 
 # Test requirements
 gem 'rr', :require => false, :group => 'test'
@@ -39,6 +38,10 @@ gem 'awesome_print'
 
 group :development do
   gem 'annotate'
+end
+
+group :development, :test do
+  gem 'sqlite3'
 end
 
 group :production do
