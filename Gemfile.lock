@@ -68,6 +68,7 @@ GEM
       padrino-core (= 0.12.2)
     padrino-support (0.12.2)
       activesupport (>= 3.1)
+    pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-protection (1.5.3)
@@ -114,6 +115,7 @@ DEPENDENCIES
   awesome_print
   haml
   padrino (= 0.12.2)
+  pg
   rack-test
   rake
   rr
