@@ -15,6 +15,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    awesome_print (1.2.0)
     builder (3.2.2)
     diff-lcs (1.2.5)
     haml (4.0.5)
@@ -106,6 +107,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (>= 3.1)
+  awesome_print
   haml
   padrino (= 0.12.2)
   rack-test
