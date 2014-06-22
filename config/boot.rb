@@ -15,7 +15,7 @@ Padrino::Logger::Config[:development][:log_static] = true
 #
 # ## Configure your I18n
 #
-# I18n.default_locale = :en
+I18n.default_locale = :en
 # I18n.enforce_available_locales = false
 #
 # ## Configure your HTML5 data helpers
@@ -41,6 +41,7 @@ end
 # Add your after (RE)load hooks here
 #
 Padrino.after_load do
+  Time.zone = 'UTC'
 end
 
 Padrino.load!
