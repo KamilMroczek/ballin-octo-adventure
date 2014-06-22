@@ -20,7 +20,6 @@
 #  updated_at    :datetime
 #
 
-require 'spec_helper'
+class UserLocation < ActiveRecord::Base
 
-describe UserLocation do
 end

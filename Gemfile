@@ -36,3 +36,8 @@ gem 'padrino', '0.12.2'
 # end
 
 gem 'awesome_print'
+
+group :development do
+  gem 'annotate'
+end
+
