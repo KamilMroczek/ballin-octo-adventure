@@ -3,7 +3,7 @@
 module BallinOctoAdventure
   class App
     module UserLocationHelper
-      def create_user_location(json)
+      def create_user_location(json, request)
         return nil if json.nil? || json.blank?
         
         refresh_secs = json['refresh_secs']
@@ -18,6 +18,8 @@ module BallinOctoAdventure
         altitude = json['altitude']
         gps_on = json['gps_on']
         network_on = json['network_on']
+        
+        ip_address = (request && request.env) ? request.env["HTTP_X_FORWARDED_FOR"] : nil
         
         if time.present?
           Time.zone = 'UTC'
@@ -38,7 +40,8 @@ module BallinOctoAdventure
           :altitude => altitude,
           :gps_on => (gps_on.to_i > 0),
           :network_on => (network_on.to_i > 0),
-          :time => time
+          :time => time,
+          :ip_address => ip_address
         )
       end
     end
