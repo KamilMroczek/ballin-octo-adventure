@@ -7,9 +7,8 @@ BallinOctoAdventure::App.controllers :user_location do
   end
   
   post :create, :csrf_protection => false, :provides => [:json] do
-    ap request
     json = JSON.parse(request.body.string)
-    @user_location = create_user_location(json)
+    @user_location = create_user_location(json, request)
     if @user_location && @user_location.persisted?
       @user_location.to_json
     else

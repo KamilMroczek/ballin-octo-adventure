@@ -6,4 +6,6 @@
 
 require File.expand_path("../config/boot.rb", __FILE__)
 
+$stdout.sync = true
+
 run Padrino.application
