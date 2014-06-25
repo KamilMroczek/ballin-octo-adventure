@@ -1,0 +1,12 @@
+!!! 5
+
+= stylesheet_link_tag 'application'
+= stylesheet_link_tag 'user_location/map'
+= javascript_include_tag 'application'
+= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC0CDyphH7-uZimHzFQ7g-FZy9VckUz-9M'
+= javascript_include_tag 'user_location/map'
+
+
+.content
+  
+%div{:id => 'map-canvas'}

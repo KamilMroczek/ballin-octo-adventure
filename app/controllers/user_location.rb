@@ -2,8 +2,8 @@ require 'json'
 
 BallinOctoAdventure::App.controllers :user_location do
 
-  get :index do
-    render 'index'
+  get :index, :provides => [:json] do
+    UserLocation.last(10).to_json
   end
   
   post :create, :csrf_protection => false, :provides => [:json] do
@@ -15,6 +15,11 @@ BallinOctoAdventure::App.controllers :user_location do
       @user_location.errors.to_json
     end
   end
+  
+  get :map do
+    render 'map'
+  end
+  
   # get :index, :map => '/foo/bar' do
   #   # session[:foo] = 'bar'
   #   render 'index'
