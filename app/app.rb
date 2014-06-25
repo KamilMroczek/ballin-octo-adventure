@@ -4,6 +4,9 @@ module BallinOctoAdventure
     use ActiveRecord::ConnectionAdapters::ConnectionManagement
     register Padrino::Mailer
     register Padrino::Helpers
+    register Padrino::Sprockets
+    
+    sprockets
 
     enable :sessions
 

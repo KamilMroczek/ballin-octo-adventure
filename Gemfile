@@ -35,6 +35,7 @@ gem 'padrino', '0.12.2'
 # end
 
 gem 'awesome_print'
+gem 'padrino-sprockets', :require => "padrino/sprockets"
 
 group :development do
   gem 'annotate'
