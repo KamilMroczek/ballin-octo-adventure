@@ -8,5 +8,14 @@
 
 
 .content
+  .select-device-div
+    Select Device
+    = select_tag :device, :options => @devices, :selected => 'none', :id => 'select_devices'
+  .marker-type-div
+    Select Marker Type
+    = radio_button_tag :marker_type, :value => 'circle', :checked => true, :id => 'marker-circle'
+    Radius
+    = radio_button_tag :marker_type, :value => 'dot', :id => 'marker-dot'
+    Marker
   
 %div{:id => 'map-canvas'}

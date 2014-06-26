@@ -3,7 +3,7 @@ require 'json'
 BallinOctoAdventure::App.controllers :user_location do
 
   get :index, :provides => [:json] do
-    UserLocation.last(10).to_json
+    UserLocation.where(:device => params[:device]).last(10).to_json
   end
   
   post :create, :csrf_protection => false, :provides => [:json] do
@@ -17,6 +17,7 @@ BallinOctoAdventure::App.controllers :user_location do
   end
   
   get :map do
+    @devices = UserLocation.select(:device).uniq.map(&:device) + ['none']
     render 'map'
   end
   

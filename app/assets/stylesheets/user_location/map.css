@@ -1,4 +1,10 @@
 #map-canvas {
   height: 700px;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.content {
+  height: 100px;
+  margin: 0 auto;
 }
