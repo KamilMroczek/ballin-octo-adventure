@@ -18,6 +18,7 @@
 #  network_on    :boolean
 #  created_at    :datetime
 #  updated_at    :datetime
+#  device        :string(255)
 #
 
 require 'spec_helper'
