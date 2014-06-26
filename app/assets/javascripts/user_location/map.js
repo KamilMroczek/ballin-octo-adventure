@@ -19,7 +19,12 @@ ballin_octo.setup_controls = function() {
     }
     
     ballin_octo.remove_markers_from_map();
-    ballin_octo.add_markers();
+    ballin_octo.add_markers(null);
+  });
+  
+  $('#select_location_type').change(function() {
+    ballin_octo.remove_markers_from_map();
+    ballin_octo.add_markers(this.value);
   });
 };
 
@@ -39,21 +44,61 @@ ballin_octo.load_data = function(device) {
       ballin_octo.locations.push(data[i]);
     });
     
-    ballin_octo.add_markers();
+    ballin_octo.add_markers(null);
   });
 };
 
 
-ballin_octo.add_markers = function() {
+ballin_octo.add_markers = function(type_filter) {
   for (var i = 0; i < ballin_octo.locations.length; i++) {
-    var marker;
-    if (ballin_octo.marker_type == 'circle') {
-      marker = ballin_octo.create_circle(ballin_octo.map, ballin_octo.locations[i]);
-    } else {
-      marker = ballin_octo.create_point(ballin_octo.map, ballin_octo.locations[i]);
-    }
+    if(ballin_octo.should_include_location(ballin_octo.locations[i], type_filter)) {
+      var marker;
+      if (ballin_octo.marker_type == 'circle') {
+        marker = ballin_octo.create_circle(ballin_octo.map, ballin_octo.locations[i]);
+        if(i == 0) {
+          ballin_octo.recenter_map(marker.getCenter());
+        }
+      } else {
+        marker = ballin_octo.create_point(ballin_octo.map, ballin_octo.locations[i]);
+        if(i == 0) {
+          ballin_octo.recenter_map(marker.getPosition());
+        }
+      }
     
-    ballin_octo.markers.push(marker);
+      ballin_octo.markers.push(marker);
+    }
+  }
+};
+
+ballin_octo.recenter_map = function(latLong) {
+  var newOptions = {
+    center: latLong,
+    zoom: 19
+  };
+  
+  ballin_octo.map.setOptions(newOptions);
+}
+
+ballin_octo.should_include_location = function(location, type_filter) {
+  if(type_filter == null || type_filter == 'All') {
+    return true;
+  }
+  
+  switch(type_filter) {
+    case 'Both':
+      return location['gps_on'] || location['network_on']
+      break;
+    case 'GPS':
+      return location['gps_on']
+      break;
+    case 'Network':
+      return location['network_on']
+      break;
+    case 'Neither':
+      return !(location['gps_on'] || location['network_on'])
+      break;
+    default:
+      return false;
   }
 };
 
@@ -112,5 +157,4 @@ $(document).ready(function () {
   
   ballin_octo.create_map();
   ballin_octo.setup_controls();
-  ballin_octo.load_data('kamil');
 });

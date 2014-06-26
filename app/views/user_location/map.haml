@@ -17,11 +17,15 @@
     Radius
     = radio_button_tag :marker_type, :value => 'dot', :id => 'marker-dot'
     Point
+  .select-location-type-div.inline
+    Location Type
+    = select_tag :location_type, :options => ['All', 'Both', 'GPS', 'Network', 'Neither'], :selected => 'All', :id => 'select_location_type'
+    
   .marker-legend.inline
     %ul
-      %li{:style => "color:#FF0000"} Both GPS and Network
-      %li{:style => "color:#00FF00"} Only GPS
-      %li{:style => "color:#0000FF"} Only Network
+      %li{:style => "color:#FF0000"} GPS and Network
+      %li{:style => "color:#00FF00"} GPS
+      %li{:style => "color:#0000FF"} Network
       %li{:style => "color:#000000"} None
   
   
