@@ -1,4 +1,40 @@
 #map-canvas {
   height: 700px;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.content {
+  height: 100px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.marker-legend ul li {
+  display: inline;
+  margin: 0px 10px;
+}
+
+.clearBoth { 
+  clear:both; 
+}
+
+div.inline { 
+  float:left; 
+}
+
+.select-device-div {
+  margin: 10px 30px;
+}
+
+.marker-type-div {
+  margin: 10px 30px;
+}
+
+.marker-legend {
+  margin: 0px 30px;
+}
+
+.select-location-type-div {
+  margin: 10px 30px;
 }

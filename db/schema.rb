@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 3) do
 
   create_table "user_locations", force: true do |t|
     t.string   "provider_type"
@@ -29,6 +29,9 @@ ActiveRecord::Schema.define(version: 1) do
     t.boolean  "network_on"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "device"
   end
+
+  add_index "user_locations", ["device"], name: "idx_user_locations_device"
 
 end
