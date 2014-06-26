@@ -18,6 +18,7 @@ module BallinOctoAdventure
         altitude = json['altitude']
         gps_on = json['gps_on']
         network_on = json['network_on']
+        device = json['device']
         
         ip_address = (request && request.env) ? request.env["HTTP_X_FORWARDED_FOR"] : nil
         
@@ -41,7 +42,8 @@ module BallinOctoAdventure
           :gps_on => (gps_on.to_i > 0),
           :network_on => (network_on.to_i > 0),
           :time => time,
-          :ip_address => ip_address
+          :ip_address => ip_address,
+          :device => device
         )
       end
     end
