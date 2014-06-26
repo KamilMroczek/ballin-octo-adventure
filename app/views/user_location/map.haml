@@ -8,14 +8,21 @@
 
 
 .content
-  .select-device-div
-    Select Device
+  .select-device-div.inline
+    Device
     = select_tag :device, :options => @devices, :selected => 'none', :id => 'select_devices'
-  .marker-type-div
-    Select Marker Type
+  .marker-type-div.inline
+    Marker
     = radio_button_tag :marker_type, :value => 'circle', :checked => true, :id => 'marker-circle'
     Radius
     = radio_button_tag :marker_type, :value => 'dot', :id => 'marker-dot'
-    Marker
+    Point
+  .marker-legend.inline
+    %ul
+      %li{:style => "color:#FF0000"} Both GPS and Network
+      %li{:style => "color:#00FF00"} Only GPS
+      %li{:style => "color:#0000FF"} Only Network
+      %li{:style => "color:#000000"} None
+  
   
 %div{:id => 'map-canvas'}
