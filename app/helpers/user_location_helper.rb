@@ -47,6 +47,13 @@ module BallinOctoAdventure
         )
       end
     end
+    
+    def last_2_weeks
+      time = Time.current.in_time_zone("Pacific Time (US & Canada)").beginning_of_day
+      (0..14).map do |i|
+        (time - i.days).strftime("%a %B %e, %Y")
+      end
+    end
 
     helpers UserLocationHelper
   end
