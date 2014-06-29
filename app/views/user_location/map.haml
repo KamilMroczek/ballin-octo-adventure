@@ -25,7 +25,7 @@
     
   .select-location-type-div.inline
     Location Type
-    = select_tag :location_type, :options => ['All', 'Both', 'GPS', 'Network', 'Neither'], :selected => 'All', :id => 'select_location_type'
+    = select_tag :location_type, :options => ['All', 'Both', 'GPS', 'Network', 'Neither', 'Only GPS', 'Only Network'], :selected => 'All', :id => 'select_location_type'
     
   .marker-legend.inline
     %ul

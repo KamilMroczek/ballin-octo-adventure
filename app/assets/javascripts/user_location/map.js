@@ -165,6 +165,12 @@ ballin_octo.should_include_location = function(location, type_filter) {
     case 'Neither':
       return !(location['gps_on'] || location['network_on'])
       break;
+    case 'Only GPS':
+      return location['gps_on'] && !location['network_on']
+      return;
+    case 'Only Network':
+      return !location['gps_on'] && location['network_on']
+      return;
     default:
       return false;
   }
