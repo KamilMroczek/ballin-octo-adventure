@@ -1,12 +1,19 @@
 var ballin_octo = {};
 
+// map stuff
 ballin_octo.locations = [];
 ballin_octo.markers = [];
-ballin_octo.map = null;
-ballin_octo.marker_type = null;
 
+// google maps api stuff
+ballin_octo.map = null;
+ballin_octo.path = null;
+
+// query attributes
 ballin_octo.device = null;
 ballin_octo.day = null;
+
+// filter attributes
+ballin_octo.marker_type = null;
 
 ballin_octo.setup_controls = function() {
   $('#select_devices').change(function() {
@@ -18,7 +25,7 @@ ballin_octo.setup_controls = function() {
       return;
     }
     
-    ballin_octo.remove_markers_from_map();
+    ballin_octo.clear_map();
     ballin_octo.load_data();
   });
   
@@ -31,7 +38,7 @@ ballin_octo.setup_controls = function() {
       return;
     }
     
-    ballin_octo.remove_markers_from_map();
+    ballin_octo.clear_map();
     ballin_octo.load_data();
   });
   
@@ -42,17 +49,23 @@ ballin_octo.setup_controls = function() {
       ballin_octo.marker_type = 'circle';
     }
     
-    ballin_octo.remove_markers_from_map();
+    ballin_octo.clear_map();
     ballin_octo.add_markers(null);
   });
   
   $('#select_location_type').change(function() {
-    ballin_octo.remove_markers_from_map();
+    ballin_octo.clear_map();
     ballin_octo.add_markers(this.value);
   });
 };
 
-ballin_octo.remove_markers_from_map = function() {
+ballin_octo.clear_map = function() {
+  // remove old lines from map
+  if(ballin_octo.path) {
+    ballin_octo.path.setMap(null);
+  }
+  
+  // remove markers
   for (var i = 0; i < ballin_octo.markers.length; i++) {
     ballin_octo.markers[i].setMap(null);
   }
@@ -94,7 +107,36 @@ ballin_octo.add_markers = function(type_filter) {
       ballin_octo.markers.push(marker);
     }
   }
+  ballin_octo.add_new_path_between_markers();
 };
+
+ballin_octo.add_new_path_between_markers = function() {
+  var points = $.map(ballin_octo.markers, function(marker, index) {
+    if (marker instanceof google.maps.Circle) {
+        return marker.getCenter();
+    } else if (marker instanceof google.maps.Marker) {
+      return marker.getPosition();
+    }
+  });
+  
+  var arrowSymbol = {
+    path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
+  };
+  
+  ballin_octo.path = new google.maps.Polyline({
+    path: points,
+    geodesic: false,
+    icons: [{
+      icon: arrowSymbol,
+      offset: '100%',
+      repeat: '100px'
+    }],
+    strokeColor: '#A901DB',
+    strokeWeight: 1.5
+  });
+
+  ballin_octo.path.setMap(ballin_octo.map);
+}
 
 ballin_octo.recenter_map = function(latLong) {
   var newOptions = {

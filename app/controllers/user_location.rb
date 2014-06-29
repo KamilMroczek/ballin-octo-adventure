@@ -24,7 +24,7 @@ BallinOctoAdventure::App.controllers :user_location do
   
   get :map do
     @devices =  ['Select'] + UserLocation.select(:device).uniq.map(&:device)
-    @days = ['Select'] + last_2_weeks
+    @days = ['Select'] + active_days_last_2_weeks
     render 'map'
   end
   
