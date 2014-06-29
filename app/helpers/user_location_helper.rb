@@ -59,7 +59,9 @@ module BallinOctoAdventure
         days << u.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%a %B %e, %Y")
       end
       
-      days.to_a
+      # have newest days first
+      Time.zone = 'UTC'
+      days.to_a.sort { |d| -Time.zone.parse(d).to_i }
     end
 
     helpers UserLocationHelper
