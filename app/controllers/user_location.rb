@@ -3,7 +3,13 @@ require 'json'
 BallinOctoAdventure::App.controllers :user_location do
 
   get :index, :provides => [:json] do
-    UserLocation.where(:device => params[:device]).last(200).to_json
+    Time.zone = 'Pacific Time (US & Canada)'
+    start_time = Time.zone.parse(params[:day]).in_time_zone("Pacific Time (US & Canada)").beginning_of_day
+    end_time = start_time + 1.day
+    UserLocation
+      .where(:device => params[:device])
+      .where("created_at BETWEEN '#{start_time.utc}' and '#{end_time.utc}'")
+      .last(300).to_json
   end
   
   post :create, :csrf_protection => false, :provides => [:json] do
@@ -17,7 +23,8 @@ BallinOctoAdventure::App.controllers :user_location do
   end
   
   get :map do
-    @devices = UserLocation.select(:device).uniq.map(&:device) + ['none']
+    @devices =  ['Select'] + UserLocation.select(:device).uniq.map(&:device)
+    @days = ['Select'] + last_2_weeks
     render 'map'
   end
   

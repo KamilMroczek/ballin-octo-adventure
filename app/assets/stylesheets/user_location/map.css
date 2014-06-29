@@ -28,7 +28,7 @@ div.inline {
 }
 
 .marker-type-div {
-  margin: 10px 30px;
+  margin: 12px 30px;
 }
 
 .marker-legend {
@@ -36,5 +36,9 @@ div.inline {
 }
 
 .select-location-type-div {
+  margin: 10px 30px;
+}
+
+.select-pull-day-div {
   margin: 10px 30px;
 }

@@ -5,10 +5,34 @@ ballin_octo.markers = [];
 ballin_octo.map = null;
 ballin_octo.marker_type = null;
 
+ballin_octo.device = null;
+ballin_octo.day = null;
+
 ballin_octo.setup_controls = function() {
   $('#select_devices').change(function() {
+    ballin_octo.device = this.value;
+    
+    // require both date and device to be filled in before we search
+    if(!ballin_octo.device || ballin_octo.device === 'Select' ||
+       !ballin_octo.day    || ballin_octo.day    === 'Select') {
+      return;
+    }
+    
     ballin_octo.remove_markers_from_map();
-    ballin_octo.load_data(this.value);
+    ballin_octo.load_data();
+  });
+  
+  $('#select_pull_day').change(function() {
+    ballin_octo.day = this.value;
+    
+    // require both date and device to be filled in before we search
+    if(!ballin_octo.device || ballin_octo.device === 'Select' ||
+       !ballin_octo.day    || ballin_octo.day    === 'Select') {
+      return;
+    }
+    
+    ballin_octo.remove_markers_from_map();
+    ballin_octo.load_data();
   });
   
   $('input[name=marker_type]:radio').change(function() {
@@ -36,10 +60,12 @@ ballin_octo.remove_markers_from_map = function() {
 };
 
 
-ballin_octo.load_data = function(device) {
+ballin_octo.load_data = function() {  
   ballin_octo.locations = [];
+  device = ballin_octo.device;
+  day = ballin_octo.day;
   
-  $.getJSON("/user_location/?device=" + device, function( data ) {  
+  $.getJSON("/user_location/?device=" + device + "&day=" + encodeURIComponent(day), function( data ) {  
     $.each(data, function(i) {
       ballin_octo.locations.push(data[i]);
     });

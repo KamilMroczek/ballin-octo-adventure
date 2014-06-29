@@ -10,13 +10,19 @@
 .content
   .select-device-div.inline
     Device
-    = select_tag :device, :options => @devices, :selected => 'none', :id => 'select_devices'
+    = select_tag :device, :options => @devices, :selected => 'Select', :id => 'select_devices'
+    
+  .select-pull-day-div.inline
+    Date
+    = select_tag :pull_day, :options => @days, :selected => 'Select', :id => 'select_pull_day'
+    
   .marker-type-div.inline
     Marker
     = radio_button_tag :marker_type, :value => 'circle', :checked => true, :id => 'marker-circle'
     Radius
     = radio_button_tag :marker_type, :value => 'dot', :id => 'marker-dot'
     Point
+    
   .select-location-type-div.inline
     Location Type
     = select_tag :location_type, :options => ['All', 'Both', 'GPS', 'Network', 'Neither'], :selected => 'All', :id => 'select_location_type'
