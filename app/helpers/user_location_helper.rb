@@ -1,4 +1,5 @@
 # Helper methods defined here can be accessed in any controller or view in the application
+require 'set'
 
 module BallinOctoAdventure
   class App
@@ -48,11 +49,17 @@ module BallinOctoAdventure
       end
     end
     
-    def last_2_weeks
-      time = Time.current.in_time_zone("Pacific Time (US & Canada)").beginning_of_day
-      (0..14).map do |i|
-        (time - i.days).strftime("%a %B %e, %Y")
+    def active_days_last_2_weeks
+      days = Set.new
+      
+      # this is to control how many we loop through (50K)
+      last_index = UserLocation.count
+      start_index = [(last_index - 50000), 0].max
+      UserLocation.select([:id, :created_at]).find_each(:start => start_index) do |u|
+        days << u.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("%a %B %e, %Y")
       end
+      
+      days.to_a
     end
 
     helpers UserLocationHelper
