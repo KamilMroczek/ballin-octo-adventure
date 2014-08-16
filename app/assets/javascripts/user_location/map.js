@@ -107,7 +107,7 @@ ballin_octo.add_markers = function(type_filter) {
       ballin_octo.markers.push(marker);
     }
   }
-  ballin_octo.add_new_path_between_markers();
+  // ballin_octo.add_new_path_between_markers();
 };
 
 ballin_octo.add_new_path_between_markers = function() {
