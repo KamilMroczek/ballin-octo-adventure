@@ -211,7 +211,8 @@ ballin_octo.select_colour = function (location) {
 ballin_octo.create_point = function(map, loc) {
   var point = new google.maps.Marker({
       position: new google.maps.LatLng(loc["latitude"], loc["longitude"]),
-      map: map
+      map: map,
+      title: loc["note"]
   });
   
   return point;
