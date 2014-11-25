@@ -197,14 +197,14 @@ ballin_octo.create_circle = function(map, loc) {
 };
 
 ballin_octo.select_colour = function (location) {
-  if(location['gps_on'] && location['network_on']) {
+  if(location['provider_type'] == 'HighAccuracy') {
     return '#FF0000';
-  } else if (location['gps_on']) {
+  } else if (location['provider_type'] == 'BalancedPower') {
+    return '#FFFF00';
+  } else if (location['provider_type'] == 'LowPower') {
     return '#00FF00';
-  } else if (location['network_on']) {
+  } else {
     return '#0000FF';
-  } else { // no network and no gps
-    return '#000000';
   }
 };
 
