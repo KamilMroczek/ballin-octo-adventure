@@ -172,28 +172,7 @@ ballin_octo.should_include_location = function(location, type_filter) {
     return true;
   }
   
-  switch(type_filter) {
-    case 'Both':
-      return location['gps_on'] || location['network_on']
-      break;
-    case 'GPS':
-      return location['gps_on']
-      break;
-    case 'Network':
-      return location['network_on']
-      break;
-    case 'Neither':
-      return !(location['gps_on'] || location['network_on'])
-      break;
-    case 'Only GPS':
-      return location['gps_on'] && !location['network_on']
-      return;
-    case 'Only Network':
-      return !location['gps_on'] && location['network_on']
-      return;
-    default:
-      return false;
-  }
+  return location['provider_type'] == type_filter;
 };
 
 ballin_octo.create_circle = function(map, loc) {
