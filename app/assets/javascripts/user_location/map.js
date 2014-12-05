@@ -11,6 +11,7 @@ ballin_octo.path = null;
 // query attributes
 ballin_octo.device = null;
 ballin_octo.day = null;
+ballin_octo.note = null;
 
 // filter attributes
 ballin_octo.marker_type = null;
@@ -31,6 +32,19 @@ ballin_octo.setup_controls = function() {
   
   $('#select_pull_day').change(function() {
     ballin_octo.day = this.value;
+    
+    // require both date and device to be filled in before we search
+    if(!ballin_octo.device || ballin_octo.device === 'Select' ||
+       !ballin_octo.day    || ballin_octo.day    === 'Select') {
+      return;
+    }
+    
+    ballin_octo.clear_map();
+    ballin_octo.load_data();
+  });
+  
+  $('#select_note').change(function() {
+    ballin_octo.note = this.value;
     
     // require both date and device to be filled in before we search
     if(!ballin_octo.device || ballin_octo.device === 'Select' ||
@@ -77,8 +91,14 @@ ballin_octo.load_data = function() {
   ballin_octo.locations = [];
   device = ballin_octo.device;
   day = ballin_octo.day;
+  note = ballin_octo.note;
   
-  $.getJSON("/user_location/?device=" + device + "&day=" + encodeURIComponent(day), function( data ) {  
+  var url = "/user_location/?device=" + device + "&day=" + encodeURIComponent(day);
+  if(note && note.length > 0 && note != 'Select') {
+    url += "&note=" + encodeURIComponent(note)
+  }
+  
+  $.getJSON(url, function( data ) {  
     $.each(data, function(i) {
       ballin_octo.locations.push(data[i]);
     });
