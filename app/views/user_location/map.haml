@@ -15,6 +15,10 @@
   .select-pull-day-div.inline
     Date
     = select_tag :pull_day, :options => @days, :selected => 'Select', :id => 'select_pull_day'
+
+  .select-note-div.inline
+    Note
+    = select_tag :pull_note, :options => @notes, :selected => 'Select', :id => 'select_note'
     
   .marker-type-div.inline
     Marker

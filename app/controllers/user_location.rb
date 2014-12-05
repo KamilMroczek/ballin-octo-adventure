@@ -6,10 +6,16 @@ BallinOctoAdventure::App.controllers :user_location do
     Time.zone = 'Pacific Time (US & Canada)'
     start_time = Time.zone.parse(params[:day]).in_time_zone("Pacific Time (US & Canada)").beginning_of_day
     end_time = start_time + 1.day
-    UserLocation
+
+    query = UserLocation
       .where(:device => params[:device])
       .where("created_at BETWEEN '#{start_time.utc}' and '#{end_time.utc}'")
-      .last(300).to_json
+    
+    if params[:note] && params[:note].length > 0 && params[:note] != 'Select'
+      query = query.where(:note => params[:note])
+    end
+    
+    query.last(300).to_json
   end
   
   post :create, :csrf_protection => false, :provides => [:json] do
@@ -25,6 +31,7 @@ BallinOctoAdventure::App.controllers :user_location do
   get :map do
     @devices =  ['Select'] + UserLocation.select(:device).uniq.map(&:device)
     @days = ['Select'] + active_days_last_2_weeks
+    @notes = ['Select'] + UserLocation.select(:note).uniq.map(&:note).sort
     render 'map'
   end
   
