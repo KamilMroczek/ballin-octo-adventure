@@ -64,12 +64,12 @@ ballin_octo.setup_controls = function() {
     }
     
     ballin_octo.clear_map();
-    ballin_octo.add_markers(null);
+    ballin_octo.add_markers(false);
   });
   
   $('#select_location_type').change(function() {
     ballin_octo.clear_map();
-    ballin_octo.add_markers(this.value);
+    ballin_octo.add_markers(false);
   });
 };
 
@@ -103,23 +103,23 @@ ballin_octo.load_data = function() {
       ballin_octo.locations.push(data[i]);
     });
     
-    ballin_octo.add_markers(null);
+    ballin_octo.add_markers(true);
   });
 };
 
 
-ballin_octo.add_markers = function(type_filter) {
+ballin_octo.add_markers = function(recenter_map) {
   for (var i = 0; i < ballin_octo.locations.length; i++) {
-    if(ballin_octo.should_include_location(ballin_octo.locations[i], type_filter)) {
+    if(ballin_octo.should_include_location(ballin_octo.locations[i])) {
       var marker;
       if (ballin_octo.marker_type == 'circle') {
         marker = ballin_octo.create_circle(ballin_octo.map, ballin_octo.locations[i]);
-        if(i == 0) {
+        if(recenter_map && i == 0) {
           ballin_octo.recenter_map(marker.getCenter());
         }
       } else {
         marker = ballin_octo.create_point(ballin_octo.map, ballin_octo.locations[i]);
-        if(i == 0) {
+        if(recenter_map && i == 0) {
           ballin_octo.recenter_map(marker.getPosition());
         }
       }
@@ -167,7 +167,8 @@ ballin_octo.recenter_map = function(latLong) {
   ballin_octo.map.setOptions(newOptions);
 }
 
-ballin_octo.should_include_location = function(location, type_filter) {
+ballin_octo.should_include_location = function(location) {
+  type_filter = $('#select_location_type').val();
   if(type_filter == null || type_filter == 'All') {
     return true;
   }
